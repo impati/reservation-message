@@ -7,6 +7,7 @@ public record ReservationMessageResponse(
 
         Long reservationId,
         String content,
+        String memberNumberFilePath,
         LocalDateTime reservationAt,
         LocalDateTime registeredAt
 ) {
@@ -15,6 +16,7 @@ public record ReservationMessageResponse(
         return new ReservationMessageResponse(
                 reservationMessage.getId(),
                 reservationMessage.getContent(),
+                reservationMessage.getMemberNumberFilePath(),
                 reservationMessage.getReservationAt(),
                 reservationMessage.getRegisteredAt()
         );
