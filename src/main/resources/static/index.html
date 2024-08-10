@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Upload to AWS S3</title>
+</head>
+<body>
+
+
+<h1>메시지 예약 기능</h1>
+<form action="/reservation-messages" method="post" enctype="multipart/form-data">
+  <div> 회원 번호 등록 하기 : <input type="file" name="file" required></div>
+  <div> 내용 : <input type="text" name="content" required></div>
+  <div> 예약 일시 : <input type="datetime-local" name="reservationAt" required></div>
+
+  <button type="submit">Upload</button>
+</form>
+
+
+</body>
+</html>
