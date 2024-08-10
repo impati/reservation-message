@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        show_sql: true
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: impati
+    password: impati
+    url: jdbc:mysql://localhost:3306/reservation
