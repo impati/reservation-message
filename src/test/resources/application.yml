@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    open-in-view: false
+
+aws:
+  s3:
+    region: REGION
+    bucket-name: BUCKET
+    directory: DIRECTORY
+    access-key: ACCESS_KEY
+    secret-key: SECRET_KEY
