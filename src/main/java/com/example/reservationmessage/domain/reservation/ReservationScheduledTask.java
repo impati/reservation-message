@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Component
@@ -21,8 +22,12 @@ public class ReservationScheduledTask {
     private final ReservationMessageExecutor reservationMessageExecutor;
 
     @Scheduled(cron = "0 0,30 * * * *")
-    public void performTask() throws InterruptedException {
-        ReservationTime reservationTime = reservationTimeResolver.convertReservationTime(LocalDateTime.now());
+    @Transactional
+    public void runReservation() throws InterruptedException {
+        LocalDateTime now = LocalDateTime.now();
+        ReservationTime reservationTime = reservationTimeResolver.convertReservationTime(now);
+        log.info("LocalDateTime = {} , ReservationTime = {}", now, reservationTime);
+
         List<ReservationMessage> reservationMessages = reservationMessageSelector.findTarget(reservationTime);
 
         for (ReservationMessage reservationMessage : reservationMessages) {

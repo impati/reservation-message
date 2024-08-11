@@ -17,7 +17,7 @@ public class ReservationMessageSelector {
     public List<ReservationMessage> findTarget(ReservationTime reservationTime) {
 
         return repository.findTargetReservationMessage(reservationTime.getValue()).stream()
-                .filter(ReservationMessage::isActive)
+                .filter(ReservationMessage::isBefore)
                 .sorted(Comparator.comparing(ReservationMessage::getRegisteredAt))
                 .toList();
     }

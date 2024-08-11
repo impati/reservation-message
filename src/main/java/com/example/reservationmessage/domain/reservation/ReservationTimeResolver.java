@@ -2,6 +2,7 @@ package com.example.reservationmessage.domain.reservation;
 
 import com.example.reservationmessage.domain.reservation.reservation_message.ReservationTime;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +20,11 @@ public class ReservationTimeResolver {
     );
 
     public ReservationTime convertReservationTime(LocalDateTime now) {
-        if (ZERO_TIME_GAPS.contains(now.getMinute()) || THIRTY_TIME_GAPS.contains(now.getMinute())) {
-            return ReservationTime.from(now);
+        if (ZERO_TIME_GAPS.contains(now.getMinute())) {
+            return ReservationTime.from(LocalDateTime.of(now.toLocalDate(), LocalTime.of(now.getHour(), 0)));
+        }
+        if (THIRTY_TIME_GAPS.contains(now.getMinute())) {
+            return ReservationTime.from(LocalDateTime.of(now.toLocalDate(), LocalTime.of(now.getHour(), 30)));
         }
 
         throw new IllegalStateException("호출 시간이 잘못되었습니다. = " + now);

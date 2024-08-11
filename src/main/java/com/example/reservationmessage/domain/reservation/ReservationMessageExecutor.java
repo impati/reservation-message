@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class ReservationMessageExecutor {
 
     public void execute(ReservationMessage reservationMessage) {
+        reservationMessage.active();
         log.info("execute reservationMessage = {} ", reservationMessage);
     }
 }
