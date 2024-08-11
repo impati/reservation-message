@@ -3,6 +3,8 @@ package com.example.reservationmessage.domain.reservation.reservation_message;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,6 +39,7 @@ public class ReservationMessage {
     String memberNumberFilePath;
 
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     ReservationStatus status;
 
     public ReservationMessage(final String content, final String memberNumberFilePath, final LocalDateTime reservationAt) {
@@ -47,7 +50,27 @@ public class ReservationMessage {
         this.status = ReservationStatus.BEFORE;
     }
 
+    public boolean isBefore() {
+        return this.status == ReservationStatus.BEFORE;
+    }
+
+    public boolean active() {
+        return this.status == ReservationStatus.ING;
+    }
+
     public LocalDateTime getReservationAt() {
         return reservationAt.value;
+    }
+
+    @Override
+    public String toString() {
+        return "ReservationMessage{" +
+                "id=" + id +
+                ", reservationAt=" + reservationAt +
+                ", registeredAt=" + registeredAt +
+                ", content='" + content + '\'' +
+                ", memberNumberFilePath='" + memberNumberFilePath + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

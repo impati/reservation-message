@@ -6,6 +6,7 @@ import lombok.Getter;
 enum ReservationStatus {
     BEFORE,
     ING,
-    DONE
+    DONE,
+    CANCELED
 
 }

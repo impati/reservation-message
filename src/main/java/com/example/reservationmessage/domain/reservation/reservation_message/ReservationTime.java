@@ -1,17 +1,21 @@
 package com.example.reservationmessage.domain.reservation.reservation_message;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+@ToString
 @Embeddable
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReservationTime {
 
+    @Column(name = "reservation_time")
     LocalDateTime value;
 
     private ReservationTime(final LocalDateTime value) {
