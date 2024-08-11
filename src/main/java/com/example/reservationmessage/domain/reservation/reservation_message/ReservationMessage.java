@@ -47,7 +47,23 @@ public class ReservationMessage {
         this.status = ReservationStatus.BEFORE;
     }
 
+    public boolean isActive() {
+        return this.status == ReservationStatus.BEFORE;
+    }
+
     public LocalDateTime getReservationAt() {
         return reservationAt.value;
+    }
+
+    @Override
+    public String toString() {
+        return "ReservationMessage{" +
+                "id=" + id +
+                ", reservationAt=" + reservationAt +
+                ", registeredAt=" + registeredAt +
+                ", content='" + content + '\'' +
+                ", memberNumberFilePath='" + memberNumberFilePath + '\'' +
+                ", status=" + status +
+                '}';
     }
 }
