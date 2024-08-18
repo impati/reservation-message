@@ -13,6 +13,6 @@ public class BasicAuthRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void apply(final RequestTemplate requestTemplate) {
-        requestTemplate.header("Authorization", Base64.getEncoder().encodeToString((username + ":" + password).getBytes()));
+        requestTemplate.header("Authorization", "Basic " + Base64.getEncoder().encodeToString((username + ":" + password).getBytes()));
     }
 }
