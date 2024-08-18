@@ -28,6 +28,12 @@ subprojects { // 모든 하위 모듈들에 이 설정을 적용합니다.
         mavenCentral()
     }
 
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2023.0.1")
+        }
+    }
+
     dependencies {
         compileOnly 'org.projectlombok:lombok'
         runtimeOnly 'com.h2database:h2'
