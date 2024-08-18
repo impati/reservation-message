@@ -17,7 +17,10 @@ public class JenkinsReservationMessageExecutor implements ReservationMessageExec
     @Override
     public void execute(final ReservationMessage reservationMessage) {
         reservationMessage.active();
-        log.info("time = {} , reservationMessage = {}", LocalDateTime.now(), reservationMessage);
+        log.info("execute start time = {} , reservationMessage = {}", LocalDateTime.now(), reservationMessage);
+
         jenkinsTrigger.trigger(reservationMessage.getMemberNumberFilePath(), reservationMessage.getId());
+
+        log.info("execute end time = {}", LocalDateTime.now());
     }
 }
