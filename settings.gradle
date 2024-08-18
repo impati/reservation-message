@@ -2,3 +2,4 @@ rootProject.name = 'reservation-message'
 
 include 'reservation-message-domain'
 include 'reservation-message-api'
+include 'reservation-message-batch'
