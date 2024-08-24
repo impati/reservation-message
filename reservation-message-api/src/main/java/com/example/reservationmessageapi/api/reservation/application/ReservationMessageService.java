@@ -21,17 +21,17 @@ public class ReservationMessageService {
 
     @Transactional
     public ReservationMessageResponse create(final ReservationMessageRequest request) {
-        String uploadFilePath = uploadFile(request);
+        uploadFile(request);
 
         return ReservationMessageResponse.from(
-                reservationMessageFactory.create(request.content(), uploadFilePath, request.reservationAt())
+                reservationMessageFactory.create(request.content(), request.file().getOriginalFilename(), request.reservationAt())
         );
     }
 
-    private String uploadFile(final ReservationMessageRequest request) {
+    private void uploadFile(final ReservationMessageRequest request) {
         MultipartFile file = request.file();
         try {
-            return fileRepository.uploadFile(file.getOriginalFilename(), file.getInputStream(), file.getSize());
+            fileRepository.uploadFile(file.getOriginalFilename(), file.getInputStream(), file.getSize());
         } catch (IOException e) {
             throw new IllegalStateException("파일 업로드에 실패했습니다.", e);
         }
