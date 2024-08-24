@@ -4,6 +4,7 @@ import com.example.reservationmessagedomain.domain.reservation.reservation_messa
 import com.example.reservationmessagedomain.domain.reservation.reservation_message.ReservationMessageRepository;
 import com.example.reservationmessagedomain.domain.sent_message.SentMessageRepository;
 import java.time.LocalDateTime;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
@@ -28,6 +29,12 @@ class SendReservationConfigurationTest {
 
     @Autowired
     private ReservationMessageRepository reservationMessageRepository;
+
+    @AfterEach
+    void tearDown() {
+        sentMessageRepository.deleteAll();
+        reservationMessageRepository.deleteAll();
+    }
 
     @Test
     void sendReservationMessageJob() throws Exception {
