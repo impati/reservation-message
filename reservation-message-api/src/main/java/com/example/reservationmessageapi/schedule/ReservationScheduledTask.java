@@ -27,12 +27,14 @@ public class ReservationScheduledTask {
     @Scheduled(cron = "0 0,30 * * * *")
     @Transactional
     public void runReservation() throws InterruptedException {
-        LocalDateTime now = LocalDateTime.now();
+        runReservation(LocalDateTime.now());
+    }
+
+    void runReservation(LocalDateTime now) throws InterruptedException {
         ReservationTime reservationTime = reservationTimeResolver.convertReservationTime(now);
         log.info("LocalDateTime = {} , ReservationTime = {}", now, reservationTime);
 
         List<ReservationMessage> reservationMessages = reservationMessageSelector.findTarget(reservationTime);
-
         for (ReservationMessage reservationMessage : reservationMessages) {
             Thread.sleep(HOLD_TIME);
             reservationMessageExecutor.execute(reservationMessage);
