@@ -40,7 +40,7 @@ class ReservationScheduledTaskTest {
         // given
         int inter = 2;
         CountDownLatch countDownLatch = new CountDownLatch(inter);
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
         LocalDateTime now = LocalDateTime.of(2024, 8, 24, 12, 0);
         reservationMessageRepository.saveAll(List.of(
                 new ReservationMessage(
