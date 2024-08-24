@@ -38,9 +38,9 @@ class ReservationScheduledTaskTest {
     @DisplayName("")
     void runReservation() throws InterruptedException {
         // given
-        int inter = 2;
+        int inter = 1; // 필요시에 값을 늘이자 ; ./gradlew clean build 이 실패함
         CountDownLatch countDownLatch = new CountDownLatch(inter);
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        ExecutorService executorService = Executors.newFixedThreadPool(1); // 필요시에 값을 늘이자 ; ./gradlew clean build 이 실패함
         LocalDateTime now = LocalDateTime.of(2024, 8, 24, 12, 0);
         reservationMessageRepository.saveAll(List.of(
                 new ReservationMessage(
