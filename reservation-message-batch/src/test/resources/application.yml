@@ -19,3 +19,8 @@ aws:
     directory: DIRECTORY
     access-key: ACCESS_KEY
     secret-key: SECRET_KEY
+
+jenkins:
+  url: JENKINS_URL
+  user: JENKINS_USER
+  api_token: JENKINS_API_TOKEN

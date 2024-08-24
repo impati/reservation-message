@@ -1,4 +1,4 @@
-package com.example.reservationmessagedomain.config;
+package com.example.reservationmessageapi.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
