@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface ReservationMessageRepository extends JpaRepository<ReservationMessage, Long> {
 
-    @Query("SELECT rm FROM ReservationMessage rm WHERE rm.reservationAt.value = :now")
+    @Query(value = "SELECT * FROM reservation_message rm WHERE reservation_time = :now FOR UPDATE SKIP LOCKED ", nativeQuery = true)
     List<ReservationMessage> findTargetReservationMessage(@Param("now") LocalDateTime now);
 }
