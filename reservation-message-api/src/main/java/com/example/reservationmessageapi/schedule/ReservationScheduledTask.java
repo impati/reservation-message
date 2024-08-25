@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,7 @@ public class ReservationScheduledTask {
     private final ReservationMessageExecutor reservationMessageExecutor;
 
     @Scheduled(cron = "0 0,30 * * * *")
+    @SchedulerLock(name = "reservation", lockAtLeastFor = "29m", lockAtMostFor = "29m")
     @Transactional
     public void runReservation() throws InterruptedException {
         runReservation(LocalDateTime.now());
