@@ -35,6 +35,7 @@ public class ReservationScheduledTask {
         log.info("LocalDateTime = {} , ReservationTime = {}", now, reservationTime);
 
         List<ReservationMessage> reservationMessages = reservationMessageSelector.findTarget(reservationTime);
+        log.info("reservationMessages.size = {}", reservationMessages.size());
         for (ReservationMessage reservationMessage : reservationMessages) {
             Thread.sleep(HOLD_TIME);
             reservationMessageExecutor.execute(reservationMessage);
