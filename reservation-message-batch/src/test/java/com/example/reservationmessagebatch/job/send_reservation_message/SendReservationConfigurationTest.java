@@ -53,5 +53,7 @@ class SendReservationConfigurationTest {
         assertThat(sentMessageRepository.findAll()).hasSize(2)
                 .extracting("content")
                 .contains(content);
+        ReservationMessage foundReservationMessage = reservationMessageRepository.findById(reservationMessage.getId()).orElseThrow();
+        assertThat(foundReservationMessage.isDone()).isTrue();
     }
 }

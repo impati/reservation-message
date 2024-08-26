@@ -44,6 +44,7 @@ public class SendReservationConfiguration {
         return new JobBuilder("send_reservation_message_job", jobRepository)
                 .incrementer(new RunIdIncrementer())
                 .start(sendReservationMessageStep(jobRepository, platformTransactionManager, entityManagerFactory))
+                .listener(reservationMessageJobFinishListener())
                 .build();
     }
 
@@ -55,6 +56,15 @@ public class SendReservationConfiguration {
         ReservationMessage reservationMessage = reservationMessageRepository.findById(reservationId)
                 .orElseThrow(IllegalArgumentException::new);
         return new SendReservationMessageContextHolder(reservationMessage);
+    }
+
+    @Bean
+    @JobScope
+    public ReservationMessageJobFinishListener reservationMessageJobFinishListener() {
+        return new ReservationMessageJobFinishListener(
+                sendReservationMessageContextHolder(null),
+                reservationMessageRepository
+        );
     }
 
     @Bean
