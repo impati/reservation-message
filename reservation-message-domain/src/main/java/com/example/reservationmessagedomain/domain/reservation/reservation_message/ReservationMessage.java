@@ -54,6 +54,10 @@ public class ReservationMessage {
         return this.status == ReservationStatus.BEFORE;
     }
 
+    public boolean isDone() {
+        return this.status == ReservationStatus.DONE;
+    }
+
     public void active() {
         this.status = ReservationStatus.ING;
     }
@@ -72,5 +76,9 @@ public class ReservationMessage {
                 ", memberNumberFilePath='" + memberNumberFilePath + '\'' +
                 ", status=" + status +
                 '}';
+    }
+
+    public void done() {
+        this.status = ReservationStatus.DONE;
     }
 }
