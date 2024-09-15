@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -66,19 +67,35 @@ public class ReservationMessage {
         return reservationAt.value;
     }
 
+    public void done() {
+        this.status = ReservationStatus.DONE;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ReservationMessage that)) {
+            return false;
+        }
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
     @Override
     public String toString() {
         return "ReservationMessage{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", reservationAt=" + reservationAt +
                 ", registeredAt=" + registeredAt +
                 ", content='" + content + '\'' +
                 ", memberNumberFilePath='" + memberNumberFilePath + '\'' +
                 ", status=" + status +
                 '}';
-    }
-
-    public void done() {
-        this.status = ReservationStatus.DONE;
     }
 }

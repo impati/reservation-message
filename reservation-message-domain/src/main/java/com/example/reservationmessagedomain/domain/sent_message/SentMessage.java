@@ -9,9 +9,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class SentMessage {
@@ -47,5 +50,24 @@ public class SentMessage {
 
     public void check() {
         this.isChecked = true;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof SentMessage that)) {
+            return false;
+        }
+        if (Objects.isNull(this.getId())) {
+            return memberNumber.equals(that.memberNumber) && reservationMessage.equals(that.reservationMessage);
+        }
+        return Objects.equals(this.getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
