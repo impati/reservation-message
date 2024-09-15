@@ -4,6 +4,7 @@ import com.example.reservationmessagedomain.domain.FileRepository;
 import com.example.reservationmessagedomain.domain.reservation.reservation_message.ReservationMessage;
 import com.example.reservationmessagedomain.domain.reservation.reservation_message.ReservationMessageRepository;
 import com.example.reservationmessagedomain.domain.sent_message.SentMessage;
+import com.example.reservationmessagedomain.domain.sent_message.SentMessageRepository;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -34,6 +35,7 @@ public class SendReservationConfiguration {
 
     private final FileRepository fileRepository;
     private final ReservationMessageRepository reservationMessageRepository;
+    private final SentMessageRepository sentMessageRepository;
 
     @Bean
     public Job sendReservationMessageJob(
@@ -96,13 +98,13 @@ public class SendReservationConfiguration {
     @Bean
     @StepScope
     public ItemProcessor<String, SentMessage> reservationMessageProcessor(SendReservationMessageContextHolder contextHolder) {
-        return memberNumber -> new SentMessage(memberNumber, contextHolder.getReservationMessage());
+        return new SentItemProcessor(sentMessageRepository, contextHolder);
     }
 
     @Bean
     @StepScope
     public ItemWriter<SentMessage> reservationMessageWriter(EntityManagerFactory entityManagerFactory) {
-        JpaItemWriter<SentMessage> sentMessageJpaItemWriter = new JpaItemWriter<>();
+        JpaItemWriter<SentMessage> sentMessageJpaItemWriter = new SentMessageWriter();
         sentMessageJpaItemWriter.setEntityManagerFactory(entityManagerFactory);
         return sentMessageJpaItemWriter;
     }
